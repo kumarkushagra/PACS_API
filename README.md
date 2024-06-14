@@ -4,9 +4,11 @@ This project facilitates the uploading, processing, and anonymizing of DICOM ser
 
 ## Setup Instructions
 
-1. **Ensure Server Configuration**: Ensure the server hosting the API is running and accessible at the specified port in `main.py`. Adjust the port number if necessary.
+1. **Ensure Server Configuration**: Ensure Orthanc is running and accessible at port 8042. If Orthanc is hosted on a different port, update the port number in `main.py`.
 
-2. **Install Requirements**: Make sure all necessary dependencies are installed. These dependencies are typically listed in `requirements.txt` or the import statements within `main.py`.
+2. **Ensure fastAPI is hosted**: Ensure that the 'main.py' has also been hosted using the command 'uvicorn main:app --reload'. 
+
+3. **Install Requirements**: Make sure all necessary dependencies are installed. These dependencies are typically listed in `requirements.txt` or the import statements within `main.py`.
 
 ## File Description
 
