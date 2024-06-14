@@ -39,18 +39,20 @@ async def upload_dicom(
     with open(csv_path, "wb") as buffer:
         shutil.copyfileobj(csv_file.file, buffer)
     
+
     try:
         # Call the upload_zip function
         upload_zip(dir_path, csv_path, anonymize_flag,name)
         # Remove the temporary CSV file after processing
-        os.remove(csv_path)
+        # os.remove(csv_path)
         
         return JSONResponse(content={"detail": "DICOM files uploaded and processed successfully"}, status_code=200)
     except Exception as e:
         # Remove the temporary CSV file if an error occurs
-        os.remove(csv_path)
+        # os.remove(csv_path)
         raise HTTPException(status_code=500, detail=e)
 
+    
 
 
 
