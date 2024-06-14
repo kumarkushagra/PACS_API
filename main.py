@@ -22,7 +22,8 @@ async def read_root():
 async def upload_dicom(
     dir_path: str = Form(...),
     csv_file: UploadFile = File(...),
-    anonymize_flag: bool = Form(...)
+    anonymize_flag: bool = Form(...),
+    batch_size:int = Form(...)
 ):
     # Create log (txt) file 
     now = datetime.now()
@@ -42,7 +43,7 @@ async def upload_dicom(
 
     try:
         # Call the upload_zip function
-        upload_zip(dir_path, csv_path, anonymize_flag,name)
+        upload_zip(dir_path, batch_size, csv_path, anonymize_flag,name)
         # Remove the temporary CSV file after processing
         # os.remove(csv_path)
         
