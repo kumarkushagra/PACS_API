@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload DICOM Data</title>
+</head>
+<body>
+    <h2>Upload DICOM Data</h2>
+    <form id="uploadForm" action="http://localhost:8000/upload-dicom/" method="POST" enctype="multipart/form-data">
+        <label for="dir_path">Directory Path (dir_path):</label><br>
+        <input type="text" id="dir_path" name="dir_path" value="/path/to/your/directory" required><br><br>
+        
+        <label for="anonymize_flag">Anonymize Flag (anonymize_flag):</label><br>
+        <input type="checkbox" id="anonymize_flag" name="anonymize_flag" checked>
+        <label for="anonymize_flag">Anonymize Data</label><br><br>
+        
+        <label for="csv_file">Upload CSV File:</label><br>
+        <input type="file" id="csv_file" name="csv_file" required accept=".csv"><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
