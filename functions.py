@@ -7,6 +7,29 @@ def logs(name,msg:str):
     with open(name, "a") as logFile:
         logFile.write(str(msg) +"\n")
 
+def delete_studies(name,study_ids:list):
+    '''
+    Input: List StudyID ENSURE THAT STUDYiD are present in this array
+    Output: Delete all studies with the given StudyID
+    '''
+    # Endpoint to retrieve all studies
+    studies_url = f'{ORTHANC_URL}/studies'
+    
+    try:
+        # print(type(study_ids))
+        # Delete each study
+        for study_id in study_ids:
+            study_delete_url = f'{ORTHANC_URL}/studies/{study_id}'
+            delete_response = requests.delete(study_delete_url)
+            delete_response.raise_for_status()
+            print(f'Successfully deleted study: {study_id}')
+            msg=f'Successfully deleted study: {study_id}'
+            logs(name,msg)
+    
+    except requests.exceptions.RequestException as e:
+        print(f'An error occurred: {e}')
+        msg=f'An error occurred: {e}'
+        logs(name,msg)
 
 
 def get_ID(csv_file_path: str, num_uhid: int, column_name1: str, value1, column_name2: str, value2, id_column_name: str):
@@ -197,6 +220,7 @@ def upload_zip(dir_path: str, csv_path: str, anonymize_flag: bool,name):
     for uhid in uhid_array:
         # Store study IDs of old patients
         old_studies = requests.get(f"{ORTHANC_URL}/studies").json()
+        Orignal_studies=old_studies
 
         # Get all series directories for the UHID
         paths = return_all_series_dirs(dir_path, uhid)
@@ -239,6 +263,7 @@ def upload_zip(dir_path: str, csv_path: str, anonymize_flag: bool,name):
             print(anonymize_result)
             msg=anonymize_result
             logs(name,msg)
+        delete_studies(name,[new_study_id])
 
 
         # Updating CSV
@@ -247,27 +272,30 @@ def upload_zip(dir_path: str, csv_path: str, anonymize_flag: bool,name):
     print("Done")
     msg="Done"
     logs(name,msg)
+    print(type(old_studies))
+    print(old_studies)
 
 
 
 
 
-# Testing the function
-if __name__ == "__main__":
-    # Define the directory path containing UHID subdirectories
-    dir_path = "C:/Users/EIOT/Desktop/Unziped_dir"
-    # Define the path to the CSV file containing UHID information
-    csv_path = "C:/Users/EIOT/Downloads/Final.csv"
-    # Set the anonymize flag to True if anonymization is desired
-    anonymize_flag = True
+
+# # Testing the function
+# if __name__ == "__main__":
+#     # Define the directory path containing UHID subdirectories
+#     dir_path = "C:/Users/EIOT/Desktop/Unziped_dir"
+#     # Define the path to the CSV file containing UHID information
+#     csv_path = "C:/Users/EIOT/Downloads/Final.csv"
+#     # Set the anonymize flag to True if anonymization is desired
+#     anonymize_flag = True
 
 
 
 
-    now = datetime.now()
-    timestamp = now.strftime("%Y%m%d_%H%M%S")
-    name = f"log.{timestamp}.txt"
+#     now = datetime.now()
+#     timestamp = now.strftime("%Y%m%d_%H%M%S")
+#     name = f"log.{timestamp}.txt"
 
 
-    # Call the upload_zip function to upload the DICOM series and update the CSV file
-    upload_zip(dir_path, csv_path, anonymize_flag,name)
+#     # Call the upload_zip function to upload the DICOM series and update the CSV file
+#     upload_zip(dir_path, csv_path, anonymize_flag,name)
