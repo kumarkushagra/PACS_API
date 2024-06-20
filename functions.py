@@ -201,17 +201,16 @@ ORTHANC_URL = "http://localhost:8042"
 
 
 #################################################################
-def upload_zip(dir_path: str, csv_path: str, anonymize_flag: bool,name):
+def upload_zip(dir_path: str, batch_size:int, csv_path: str, anonymize_flag: bool,name):
     """
     Uploads DICOM series from a directory and updates a CSV file.
     
-    Parameters:
     dir_path (str): The path to the directory containing UHID subdirectories.
     csv_path (str): The path to the CSV file containing UHID information.
     anonymize_flag (bool): A flag indicating whether to anonymize the uploaded studies.
     """
     # Generate UHID array
-    uhid_array = get_ID(csv_path, 3, "Uploaded", 0, "LLM", 0, "Patient ID (UHID)")
+    uhid_array = get_ID(csv_path, batch_size, "Uploaded", 0, "LLM", 0, "Patient ID (UHID)")
 
     print("DICOM series will be uploaded for the following UHID's: ", uhid_array)
     msg="DICOM series will be uploaded for the following UHID's: ", str(uhid_array)
