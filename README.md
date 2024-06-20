@@ -1,4 +1,4 @@
-# Upload DICOM Data
+# Upload DICOM Data.
 
 This project facilitates the uploading, processing, and anonymizing of DICOM series via an API. Below are the steps and details for setting up and using the project.
 
