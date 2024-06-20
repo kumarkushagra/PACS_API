@@ -25,6 +25,16 @@ async def upload_dicom(
     anonymize_flag: bool = Form(...),
     batch_size:int = Form(...)
 ):
+
+# EDIT BATCHSIZE FROM HERE
+# EDIT BATCHSIZE FROM HERE
+# EDIT BATCHSIZE FROM HERE
+
+    batch_size=10
+    
+    
+    
+    
     # Create log (txt) file 
     now = datetime.now()
     timestamp = now.strftime("%Y%m%d_%H%M%S")
@@ -43,7 +53,11 @@ async def upload_dicom(
 
     try:
         # Call the upload_zip function
+<<<<<<< HEAD
+        upload_zip(dir_path,batch_size, csv_path, anonymize_flag,name)
+=======
         upload_zip(dir_path, batch_size, csv_path, anonymize_flag,name)
+>>>>>>> e6840bb9738b32911d9aee7b56a3e3eb23b36cdc
         # Remove the temporary CSV file after processing
         # os.remove(csv_path)
         
@@ -54,6 +68,5 @@ async def upload_dicom(
         raise HTTPException(status_code=500, detail=e)
 
     
-
 
 
