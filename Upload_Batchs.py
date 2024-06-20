@@ -337,3 +337,9 @@ upload_zip(dir_path,anonymize_flag)
      # Call the upload_zip function to upload the DICOM series and update the CSV file
 
 # Uploading Bathches
+
+
+
+
+
+
